@@ -147,6 +147,56 @@ VALUES
         '2022-11-14 13:25:00'
     );
 
+CREATE TABLE comments (
+    id              INT             NOT NULL    AUTO_INCREMENT,
+    post_id         INT             NOT NULL,
+    parent_id       INT             NOT NULL    DEFAULT '-1',
+    content         TEXT            NOT NULL,
+    author_nick     VARCHAR(255)    NOT NULL,
+    author_email    VARCHAR(255)    NOT NULL,
+    author_url      VARCHAR(255)    NULL,
+    created_at      TIMESTAMP       NULL,
+    updated_at      TIMESTAMP       NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO comments (post_id, content, author_nick, author_email, author_url, created_at)
+VALUES
+    (
+        34,
+        'It''s not possible to convince a monkey to give you a banana by promising it infinite bananas when they die.',
+        'Richard Roe',
+        'rroe@example.com',
+        NULL,
+        '2022-11-11 12:23:05'
+    );
+
+INSERT INTO comments (post_id, content, author_nick, author_email, author_url, created_at)
+VALUES
+    (
+        34,
+        'He learned the important lesson that a picnic at the beach on a windy day is a bad idea. You''re good at English when you know the difference between a man eating chicken and a man-eating chicken.',
+        'Jane Doe',
+        'janedoe@example.com',
+        'https://example.com',
+        CURRENT_TIMESTAMP
+    );
+
+INSERT INTO comments (post_id, content, author_nick, author_email, author_url, created_at)
+VALUES
+    (
+        34,
+        'When he had to picnic on the beach, he purposely put sand in other people’s food.',
+        'John Doe',
+        'jdoe@example.com',
+        'https://jdoe.example.com',
+        CURRENT_TIMESTAMP
+    );
+
+
+
+
 
 
 

@@ -24,6 +24,8 @@ $showBanner = false;
                             <time class="badge bg-info"><?php echo $hour; ?></time>
                             by <i class="fa-regular fa-user"></i>
                             <a href="#!"><span class="badge bg-light text-dark"><?php echo getUserById($post['author_id'])['name']; ?></span></a>
+                            <i class="fa-regular fa-comment"></i>
+                            <span class="badge bg-warning text-dark"><?php echo getCommentsNumber($post['id']); ?></span>
                         </p>
                     </div>
                     <div class="mt-4 mb-4">
@@ -31,6 +33,21 @@ $showBanner = false;
                     </div>
                     <div class="mt-4">
                         <?php echo $post['content'] ?>
+                    </div>
+                    <!-- Comments -->
+                    <div class="mb-4 mt-4 pt-4">
+                        <h3>Comments</h3>
+                    </div>
+                    <div class="mt-4">
+                        <?php if ( count($comments) > 0 ) : ?>
+                            <?php echo showComments($comments); ?>
+                        <?php else : ?>
+                            <div class="row mt-4 mb-4">
+                                <div class="col-12">
+                                    <p>There are no comments for this post.</p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <!-- Sidebar -->

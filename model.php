@@ -1,6 +1,7 @@
 <?php
 
 require_once 'config.php';
+require_once 'helper.php';
 
 function getPDO(): PDO
 {
@@ -100,6 +101,43 @@ function destroyPost($id): bool
     } else {
         return false;
     }
+}
+
+function getAllCommentsByPost($post_id): bool|array
+{
+    $pdo = getPDO();
+    $query = 'SELECT * FROM comments WHERE post_id = :post_id ORDER BY created_at DESC';
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function getCommentsNumber($post_id): string
+{
+    $pdo = getPDO();
+    $query = 'SELECT * FROM comments WHERE post_id = :post_id';
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $count = $stmt->rowCount();
+    if ( $count === 0 ) {
+        return '0 comments';
+    } elseif ( $count === 1 ) {
+        return '1 comment';
+    } else {
+        return "$count comments";
+    }
+}
+
+function getTotalCommentsByPost($post_id): mixed
+{
+    $pdo = getPDO();
+    $query = 'SELECT COUNT(*) AS total_comments FROM comments WHERE post_id = :post_id';
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch();
 }
 
 function getUserById($id): mixed
