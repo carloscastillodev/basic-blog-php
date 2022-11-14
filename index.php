@@ -3,4 +3,4 @@ require_once 'model.php';
 
 $posts = getAllPosts();
 
-require 'list.php';
+require 'views/list.php';

@@ -25,6 +25,32 @@ function getAllPosts(): array|false
     return $stmt->fetchAll();
 }
 
+function getLatestPosts(): array|false
+{
+    $pdo = getPDO();
+    $query = 'SELECT * FROM posts ORDER BY created_at DESC LIMIT 5';
+    $stmt = $pdo->query($query);
+    return $stmt->fetchAll();
+}
+
+function getRandomPosts(): array|false
+{
+    $pdo = getPDO();
+    $query = 'SELECT * FROM posts AS t1 JOIN (SELECT id FROM posts ORDER BY RAND() LIMIT 5) AS t2 ON t1.id = t2.id';
+    $stmt = $pdo->query($query);
+    return $stmt->fetchAll();
+}
+
+function getPostById($id): mixed
+{
+    $pdo = getPDO();
+    $query = 'SELECT * FROM posts WHERE id = :id';
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+
 function getUserById($id): mixed
 {
     $pdo = getPDO();

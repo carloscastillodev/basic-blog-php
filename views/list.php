@@ -65,7 +65,7 @@
                                 <a href="#!"><span class="badge bg-light text-dark"><?php echo getUserById($post['author_id'])['name']; ?></span></a>
                             </p>
                             <p><?php echo substr($post['content'], 0, 100); ?>...</p>
-                            <a href="#!" class="btn btn-danger mt-2">Read more</a>
+                            <a href="<?php echo APP_URL; ?>show.php?id=<?php echo $post['id']; ?>" class="btn btn-danger mt-2">Read more</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
