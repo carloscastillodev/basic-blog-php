@@ -1,0 +1,13 @@
+
+.banner {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('https://picsum.photos/g/1920/1080?random');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.table {
+    display: block !important;
+}
