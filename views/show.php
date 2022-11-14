@@ -1,6 +1,6 @@
 <?php
-    $title = 'Blog - Simple post';
-    $showBanner = false;
+$title = 'Blog - Simple post';
+$showBanner = false;
 ?>
 
 <?php ob_start(); ?>
@@ -13,9 +13,9 @@
                     <div class="mb-4">
                         <h1><?php echo $post['title'] ?></h1>
                         <?php
-                            $datetime = new DateTime();
-                            $date = $datetime->format('Y-m-d');
-                            $hour = $datetime->format('H:i:s');
+                        $datetime = new DateTime();
+                        $date = $datetime->format('Y-m-d');
+                        $hour = $datetime->format('H:i:s');
                         ?>
                         <p>
                             <i class="fa-regular fa-calendar-check"></i>
@@ -58,9 +58,9 @@
                                                 <h5><?php echo $latestPost['title']; ?></h5>
                                             </a>
                                             <?php
-                                                $datetime = new DateTime($latestPost['created_at']);
-                                                $date = $datetime->format('Y-m-d');
-                                                $hour = $datetime->format('H:i:s');
+                                            $datetime = new DateTime($latestPost['created_at']);
+                                            $date = $datetime->format('Y-m-d');
+                                            $hour = $datetime->format('H:i:s');
                                             ?>
                                             <p>
                                                 <i class="fa-regular fa-calendar-check"></i>
@@ -91,9 +91,9 @@
                                                 <h5><?php echo $randomPost['title']; ?></h5>
                                             </a>
                                             <?php
-                                                $datetime = new DateTime($randomPost['created_at']);
-                                                $date = $datetime->format('Y-m-d');
-                                                $hour = $datetime->format('H:i:s');
+                                            $datetime = new DateTime($randomPost['created_at']);
+                                            $date = $datetime->format('Y-m-d');
+                                            $hour = $datetime->format('H:i:s');
                                             ?>
                                             <p>
                                                 <i class="fa-regular fa-calendar-check"></i>
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div class="p-3 mb-4 border bg-success text-center">
-                        <a class="text-white" href="#!">Admin Panel</a>
+                        <a class="text-white" href="<?php echo APP_URL; ?>admin/">Admin Panel</a>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <?php
-    $title = 'Blog - List of posts';
-    $showBanner = true;
+$title = 'Blog - List of posts';
+$showBanner = true;
 ?>
 
 <?php ob_start(); ?>

@@ -136,6 +136,17 @@ VALUES
         '2022-11-11 11:18:00'
     );
 
+-- Test insert
+INSERT INTO posts (title, content, img_url, author_id, created_at)
+VALUES
+    (
+        'I am a post about jQuery',
+        '<h3>What is jQuery?</h3><p>jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.</p><h3>Resources</h3><ul><li>jQuery Core API Documentation</li><li>jQuery Learning Center</li><li>jQuery Blog</li><li>Contribute to jQuery</li><li>About the jQuery Foundation</li><li>Browse or Submit jQuery Bugs</li></ul>',
+        'http://localhost/blog-basic-r1/uploads/jquery-logo-850x450.png',
+        1,
+        '2022-11-14 13:25:00'
+    );
+
 
 
 
