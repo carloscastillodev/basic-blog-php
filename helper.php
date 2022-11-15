@@ -28,7 +28,7 @@ function showComments($comments): string
                     <div class="container">
                         <div class="row">
                             <div class="col-auto mt-2">
-                                <img class="rounded-circle" src="' . APP_URL . 'img/mystery-man.jpg"> 
+                                <img class="rounded-circle" src="' . getGravatarUrl($comment['author_email']) . '">
                             </div>
                             <div class="col">
                                 <div class="comment-author mt-2 mb-2">

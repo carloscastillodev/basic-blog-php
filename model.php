@@ -42,6 +42,14 @@ function getRandomPosts(): array|false
     return $stmt->fetchAll();
 }
 
+function getPopularPosts(): array|false
+{
+    $pdo = getPDO();
+    $query = 'SELECT * FROM posts AS t1 JOIN (SELECT post_id, COUNT(*) AS total_comments FROM comments GROUP BY post_id ORDER BY total_comments DESC LIMIT 5) AS t2 ON t1.id = t2.post_id';
+    $stmt = $pdo->query($query);
+    return $stmt->fetchAll();
+}
+
 function getPostById($id): mixed
 {
     $pdo = getPDO();
@@ -103,7 +111,7 @@ function destroyPost($id): bool
     }
 }
 
-function getAllCommentsByPost($post_id): bool|array
+function getTotalCommentsByPost($post_id): bool|array
 {
     $pdo = getPDO();
     $query = 'SELECT * FROM comments WHERE post_id = :post_id ORDER BY created_at DESC';
@@ -130,14 +138,23 @@ function getCommentsNumber($post_id): string
     }
 }
 
-function getTotalCommentsByPost($post_id): mixed
+function storeComment($comment): bool
 {
     $pdo = getPDO();
-    $query = 'SELECT COUNT(*) AS total_comments FROM comments WHERE post_id = :post_id';
+    $query = 'INSERT INTO comments (post_id, content, author_nick, author_email, author_url, created_at) VALUES (:post_id, :content, :author_nick, :author_email, :author_url, :created_at)';
     $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetch();
+    $stmt->bindParam(':post_id', $comment['post_id'], PDO::PARAM_INT);
+    $stmt->bindParam(':content', $comment['content'], PDO::PARAM_STR);
+    $stmt->bindParam(':author_nick', $comment['author_nick'], PDO::PARAM_STR);
+    $stmt->bindParam(':author_email', $comment['author_email'], PDO::PARAM_STR);
+    $stmt->bindParam(':author_url', $comment['author_url'], PDO::PARAM_STR);
+    $stmt->bindParam(':created_at', $comment['created_at'], PDO::PARAM_STR);
+    $result = $stmt->execute();
+    if ( $result ) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function getUserById($id): mixed
@@ -158,7 +175,7 @@ function checkLogin($email, $password)
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
     $user = $stmt->fetch();
-    if ( $user && (strcmp($password, $user['password']) === 0) ) {
+    if ( $user && password_verify($password, $user['password']) ) {
         return $user;
     } else {
         return null;

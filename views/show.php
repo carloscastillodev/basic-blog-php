@@ -49,6 +49,52 @@ $showBanner = false;
                             </div>
                         <?php endif; ?>
                     </div>
+
+                    <div class="mt-4">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Leave a comment</h4>
+                                <p>Your email address will not be published. Required fields are marked *</p>
+                            </div>
+                            <div class="card-body">
+                                <?php if ( isset($_SESSION['errors']) ) : ?>
+                                    <div class="alert alert-danger">
+                                        <?php $errors = $_SESSION['errors'];  ?>
+                                        <?php foreach ( $errors as $error ) : ?>
+                                            <?php echo "- $error<br>"; ?>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
+                                <form action="<?php echo APP_URL; ?>store-comment.php" method="POST" class="row g-3 form-store">
+
+                                    <div class="col-12">
+                                        <textarea rows="6" name="content" class="form-control" placeholder="Comment*" required></textarea>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <input type="text" name="author_nick" class="form-control" placeholder="Nick*" required>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <input type="text" name="author_email" class="form-control" placeholder="Email address*" required>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <input type="url" name="author_url" class="form-control" placeholder="Website">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <input id="post_id" name="post_id" type="hidden" value="<?php echo $post['id']; ?>">
+                                        <button type="submit" class="btn btn-primary">Post comment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
                 <!-- Sidebar -->
                 <div class="col-12 col-lg-4 mt-2 mb-2 bg-light">
@@ -96,7 +142,32 @@ $showBanner = false;
                             </div>
                             <!-- Popular posts -->
                             <div class="tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
-                                <br>Popular posts (most commented).<br><br>
+                                <h2 class="mt-4">Popular posts</h2>
+                                <?php foreach ($popularPosts as $popularPost) : ?>
+                                    <div class="row mt-4 mb-4">
+                                        <div class="col-12 mt-2 mb-2">
+                                            <a href="<?php echo APP_URL; ?>show.php?id=<?php echo $popularPost['id']; ?>">
+                                                <h5><?php echo $popularPost['title']; ?></h5>
+                                            </a>
+                                            <?php
+                                            $datetime = new DateTime($popularPost['created_at']);
+                                            $date = $datetime->format('Y-m-d');
+                                            $hour = $datetime->format('H:i:s');
+                                            ?>
+                                            <p>
+                                                <i class="fa-regular fa-calendar-check"></i>
+                                                <time class="badge bg-danger"><?php echo $date; ?></time>
+                                                <i class="fa-regular fa-clock"></i>
+                                                <time class="badge bg-warning"><?php echo $hour; ?></time>
+                                            </p>
+                                        </div>
+                                        <a href="<?php echo APP_URL; ?>show.php?id=<?php echo $popularPost['id']; ?>">
+                                            <div class="col-12 mt-2 mb-2">
+                                                <img src="<?php echo $popularPost['img_url']; ?>" class="img-fluid rounded" alt="...">
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                             <!-- Random posts -->
                             <div class="tab-pane fade" id="random" role="tabpanel" aria-labelledby="random-tab">

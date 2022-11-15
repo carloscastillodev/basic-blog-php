@@ -10,11 +10,12 @@ CREATE TABLE users (
 PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- $password = password_hash('12345678', PASSWORD_DEFAULT);
 INSERT INTO users (name, email, password, created_at)
 VALUES
-    ('Carlos Castillo', 'ccpdev@gmail.com', '12345678', CURRENT_TIMESTAMP),
-    ('John Doe', 'jdoe@example.com', '12345678', CURRENT_TIMESTAMP),
-    ('Sasha Roe', 'sroe@example.com', '12345678', CURRENT_TIMESTAMP);
+    ('Carlos Castillo', 'ccpdev@gmail.com', '$2y$10$QKQbFwUYtSK7HAM2P6FF0.zhH7J1vSeg4Z6ndOjt937Xa6Xgo8eGW', CURRENT_TIMESTAMP),
+    ('John Doe', 'jdoe@example.com', '$2y$10$QKQbFwUYtSK7HAM2P6FF0.zhH7J1vSeg4Z6ndOjt937Xa6Xgo8eGW', CURRENT_TIMESTAMP),
+    ('Sasha Roe', 'sroe@example.com', '$2y$10$QKQbFwUYtSK7HAM2P6FF0.zhH7J1vSeg4Z6ndOjt937Xa6Xgo8eGW', CURRENT_TIMESTAMP);
 
 CREATE TABLE posts (
     id              INT             NOT NULL    AUTO_INCREMENT,
@@ -193,8 +194,6 @@ VALUES
         'https://jdoe.example.com',
         CURRENT_TIMESTAMP
     );
-
-
 
 
 
